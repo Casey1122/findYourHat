@@ -113,14 +113,45 @@ class Field {
             }
         }
     }
+
+    static generateField(setHeight, setWidth, difficulty) {
+        // set up empty array field
+        let fieldSize = new Array(setHeight);
+        for (let i = 0; i < fieldSize.length; i++) {
+        fieldSize[i] = new Array(setWidth).fill('░');
+        }
+
+        //player location
+        fieldSize[0][0] = '*';
+
+        // hat location
+        let hatX, hatY;
+        do {
+            hatX = Math.floor(Math.random() * setWidth);
+            hatY = Math.floor(Math.random() * setHeight);
+        } while (hatX === 0 && hatY === 0);
+        fieldSize[hatY][hatX] = '^';
+
+        // holes locationn
+        let holeX, holeY;
+        let holeCount = difficulty + 1;
+        for (let i = 0; i < holeCount; i++) {
+            holeX = Math.floor(Math.random() * setWidth);
+            holeY = Math.floor(Math.random() * setHeight);
+            if (fieldSize[holeY][holeX] === '░') {
+                fieldSize[holeY][holeX] = 'O';
+            }
+        } 
+    
+        return fieldSize;
+    }
 }
 
-const field1 = new Field([
-    ['*', '░', 'O'],
-    ['░', '░', '░'],
-    ['░', '^', '░'],
-  ]);
+// Generate field
+const myField = new Field(Field.generateField(5,5,3));
 
+// Display field
+myField.print()
 
-field1.print();
-field1.playGame();
+// Game starts and ask for input
+myField.playGame()
