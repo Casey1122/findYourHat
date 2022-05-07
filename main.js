@@ -22,8 +22,8 @@ class Field {
     }
 
     playGame() {
-        let width = this._field[0].length; // 3
-        let height = this._field.length; // 3
+        let width = this._field[0].length;
+        let height = this._field.length;
         let x = 0;
         let y = 0;
         let isEnd = false;
